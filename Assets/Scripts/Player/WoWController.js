@@ -26,10 +26,6 @@ function Start ()
 	
 }
 
-// -------------------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------- UPDATE ---------------------------------------
-// -------------------------------------------------------------------------------------------------------------
-
 function Update () {
    //
    // Only allow movement and jumps while -----------------  GROUNDED -------------
@@ -91,17 +87,15 @@ function Update () {
 	var controller:CharacterController = GetComponent(CharacterController); 
 	var flags = controller.Move(moveDirection * Time.deltaTime); 
 	grounded = (flags & CollisionFlags.Below) != 0; 
-	};
-	static function ClampAngle (angle : float, min : float, max : float) { 
+}
+
+
+static function ClampAngle (angle : float, min : float, max : float) { 
    if (angle < -360) 
       angle += 360; 
    if (angle > 360) 
       angle -= 360; 
    return Mathf.Clamp (angle, min, max); 
 } 
-
-// -------------------------------------------------------------------------------------------------------------
-// ----------------------------------------------------------- END UPDATE  --------------------------------
-// -------------------------------------------------------------------------------------------------------------
 
 @script RequireComponent(CharacterController)
