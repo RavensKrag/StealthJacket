@@ -64,10 +64,10 @@ function GetDestinationNodes() {
 	
 	walklist = new Array();
 	
-	for(item in list) {
-		// if() {
-			walklist.Add(item);
-		// }
+	for(node in list) {
+		if(node.attached_mobster == this) {
+			walklist.Add(node);
+		}
 	}
 	
 	
