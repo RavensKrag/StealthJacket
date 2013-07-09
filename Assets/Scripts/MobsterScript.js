@@ -7,6 +7,9 @@ var move_speed = 5.0;
 // Within this distance, the mobster has reached his target
 var distance_threshold = 0.1;
 
+// Whether or not the mobster shoud loop the path, or just follow to the end
+var loop : boolean = true;
+
 function Start () {
 	GetDestinationNodes();
 	MarkNextDestination();
@@ -37,6 +40,10 @@ function Move(speed) {
 function MarkNextDestination() {
 	if(walklist.length > 0) {
 		goal_node = walklist.Pop();
+		
+		if(loop) {
+			walklist.Unshift(goal_node); // Recycle node
+		}
 		
 		var delta = goal_node.transform.position - transform.position;
 		delta = delta.normalized;
