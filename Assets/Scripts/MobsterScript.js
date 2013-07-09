@@ -1,62 +1,60 @@
 // List of nodes to walk to
 var walklist;
-
-var delta : Vector3;
-var goal : Vector3;
-
-// var n : WalkNode;
-
-
+// Current destination
+var goal_node;
+// Speed in units per second
 var move_speed = 5.0;
+// Within this distance, the mobster has reached his target
+var distance_threshold = 0.1;
 
 function Start () {
 	GetDestinationNodes();
-	
-	delta = new Vector3(0,0,0);
-	
-	GetNextDestination();
+	MarkNextDestination();
 }
 
 function Update () {
-	// if(){
+	if(goal_node) {
+		var p_a = transform.position;
+		var p_b = goal_node.transform.position;
 		
-	// }
-	// else{
+		var a : Vector3 = Vector3(p_a.x, 0, p_a.z);
+		var b : Vector3 = Vector3(p_b.x, 0, p_b.z);
 		
-	// }
-	
-	// var move_vector = delta * Time.deltaTime * move_speed;
-	// GetComponent(CharacterController).Move(move_vector * Time.deltaTime); 
-	Move(move_speed);
+		print(Vector3.Distance(a,b));
+		
+		if(Vector3.Distance(a,b) < distance_threshold) {
+			MarkNextDestination();
+		}
+		
+		Move(move_speed);
+	}
 }
 
 function Move(speed) {
-	// transform.position += distance;
 	transform.position += transform.forward.normalized * speed * Time.deltaTime;
 }
 
-function GetNextDestination() {
-	var goal_node = walklist.Pop();
-	goal = goal_node.transform.position;
-	delta = goal - transform.position;
-	delta = delta.normalized;
-	
-	print(delta);
-	// Rotate around y axis (up axis) to face the target
-	// goal.RotateAround(transform.position, Vector3.up, Mathf.atan());
-	// var target_on_plane = Vector3(delta.x, 0, delta.z);
-	transform.eulerAngles = Vector3(0, Mathf.Atan2(delta.x, delta.z) * Mathf.Rad2Deg, 0);
-}
-
-function PastDestination() {
-	// delta.
+function MarkNextDestination() {
+	if(walklist.length > 0) {
+		goal_node = walklist.Pop();
+		
+		var delta = goal_node.transform.position - transform.position;
+		delta = delta.normalized;
+		
+		// print(delta);
+		print(walklist.length);
+		
+		// Rotate to face target
+		transform.eulerAngles = Vector3(0, Mathf.Atan2(delta.x, delta.z) * Mathf.Rad2Deg, 0);
+	}
+	else {
+		goal_node = null;
+	}
 }
 
 function GetDestinationNodes() {
-	// walklist = GameObject.FindGameObjectsWithTag("WalkNode");
 	var list = FindObjectsOfType(WalkNodeScript);
 	
-	// walklist = new LinkedList.<Wa>();
 	walklist = new Array();
 	
 	for(item in list) {
@@ -85,7 +83,7 @@ function GetDestinationNodes() {
 		};
 	};
 	
-	for(item in walklist) {
-		print(item.transform.position.y);
-	}
+	// for(item in walklist) {
+	// 	print(item.transform.position.y);
+	// }
 }
