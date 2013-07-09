@@ -18,11 +18,11 @@ private var y = 0.0;
 function Start ()
 {
 
-	animation.wrapMode = WrapMode.Loop;
-	var punch = animation["punch"];
-	var walk = animation["walk"];
-	punch.wrapMode = WrapMode.Once;
-	animation["punch"].layer = 9;
+	// animation.wrapMode = WrapMode.Loop;
+	// var punch = animation["punch"];
+	// var walk = animation["walk"];
+	// punch.wrapMode = WrapMode.Once;
+	// animation["punch"].layer = 9;
 	
 }
 
@@ -50,17 +50,17 @@ function Update () {
 			moveStatus = isWalking ? "walking" : "running"; 
 			if (isWalking){
 				// invoke WALK animation here
-				animation.CrossFade("walk");
+				// animation.CrossFade("walk");
 			} else {
 				// call RUN animation here
-				animation.CrossFade("run");
+				// animation.CrossFade("run");
 			}
 		} else {
 			// call IDLE animation here
-			animation.CrossFade("idle");
+			// animation.CrossFade("idle");
 		}
 		if( Input.GetKey("t")) {	
-			animation.CrossFadeQueued("punch", 0.1, QueueMode.PlayNow);
+			// animation.CrossFadeQueued("punch", 0.1, QueueMode.PlayNow);
 		}	 
 		
 	// Jump! 
