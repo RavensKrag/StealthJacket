@@ -34,7 +34,8 @@ function Update () {
 }
 
 function Move(speed) {
-	transform.position += transform.forward.normalized * speed * Time.deltaTime;
+	// transform.position += transform.forward.normalized * speed * Time.deltaTime;
+	rigidbody.velocity = transform.forward.normalized * speed;
 }
 
 function MarkNextDestination() {
