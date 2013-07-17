@@ -13,5 +13,5 @@ function Update () {
 }
 
 function WarpToStartZone() {
-	
+	transform.position = level_start.transform.position;
 }
