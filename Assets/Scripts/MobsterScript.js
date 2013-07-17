@@ -30,7 +30,7 @@ function WalkAlongNodes() {
 		var a : Vector3 = Vector3(p_a.x, 0, p_a.z);
 		var b : Vector3 = Vector3(p_b.x, 0, p_b.z);
 		
-		print(Vector3.Distance(a,b));
+		// print(Vector3.Distance(a,b));
 		
 		if(Vector3.Distance(a,b) < distance_threshold) {
 			MarkNextDestination();
@@ -57,7 +57,7 @@ function MarkNextDestination() {
 		delta = delta.normalized;
 		
 		// print(delta);
-		print(walklist.length);
+		// print(walklist.length);
 		
 		// Rotate to face target
 		transform.eulerAngles = Vector3(0, Mathf.Atan2(delta.x, delta.z) * Mathf.Rad2Deg, 0);
