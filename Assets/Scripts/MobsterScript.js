@@ -18,7 +18,8 @@ function Start () {
 function Update () {
 	WalkAlongNodes();
 	
-	
+	// if you detect the player
+	// make the player reset to the origin
 }
 
 function WalkAlongNodes() {

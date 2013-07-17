@@ -1,7 +1,9 @@
-function Start () {
+var level_start;
 
+function Start () {
+	
 }
 
 function Update () {
-
+	
 }
