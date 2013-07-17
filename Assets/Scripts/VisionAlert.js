@@ -10,6 +10,7 @@ function Update () {
 
 function OnTriggerEnter(c : Collider) {
 	// print("FINISH");
+	c.gameObject.GetComponent(PlayerScript).Spotted();
 }
 
 function TurnTowardsDisturbance() {
