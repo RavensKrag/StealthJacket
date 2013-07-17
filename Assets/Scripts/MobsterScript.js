@@ -16,6 +16,12 @@ function Start () {
 }
 
 function Update () {
+	WalkAlongNodes();
+	
+	
+}
+
+function WalkAlongNodes() {
 	if(goal_node) {
 		var p_a = transform.position;
 		var p_b = goal_node.transform.position;
