@@ -29,21 +29,21 @@ function Start ()
 function Update () {
    //
    // Only allow movement and jumps while -----------------  GROUNDED -------------
-   if(grounded) { 
-		moveDirection = new Vector3((Input.GetMouseButton(1) ? Input.GetAxis("Horizontal") : 0),0,Input.GetAxis("Vertical")); 
+   if(grounded) {
+		moveDirection = new Vector3((Input.GetMouseButton(1) ? Input.GetAxis("Horizontal") : 0),0,Input.GetAxis("Vertical"));
        
-		// if moving forward and to the side at the same time, compensate for distance 
-		// TODO: may be better way to do this? 
-		if(Input.GetMouseButton(1) && Input.GetAxis("Horizontal") && Input.GetAxis("Vertical")) { 
-			moveDirection *= .7; 
-		} 
+		// if moving forward and to the side at the same time, compensate for distance
+		// TODO: may be better way to do this?
+		if(Input.GetMouseButton(1) && Input.GetAxis("Horizontal") && Input.GetAxis("Vertical")) {
+			moveDirection *= .7;
+		}
        
-		moveDirection = transform.TransformDirection(moveDirection); 
-		moveDirection *= isWalking ? walkSpeed : runSpeed; 
+		moveDirection = transform.TransformDirection(moveDirection);
+		moveDirection *= isWalking ? walkSpeed : runSpeed;
        
-		moveStatus = "idle"; 
+		moveStatus = "idle";
 		if(moveDirection != Vector3.zero) {
-			moveStatus = isWalking ? "walking" : "running"; 
+			moveStatus = isWalking ? "walking" : "running";
 			if (isWalking){
 				// invoke WALK animation here
 				// animation.CrossFade("walk");
@@ -57,45 +57,36 @@ function Update () {
 		}
 		if( Input.GetKey("t")) {	
 			// animation.CrossFadeQueued("punch", 0.1, QueueMode.PlayNow);
-		}	 
-		
-	// Jump! 
-		if(Input.GetButton("Jump")) 
-		{
-			// call JUMP animation here
-			moveDirection.y = jumpSpeed; 
 		}
-    } 																	// END "IS GROUNDED"
-
+    }
 	
 	
-	
-	// Allow turning at anytime. Keep the character facing in the same direction as the Camera if the right mouse button is down. 
-	if(Input.GetMouseButton(1)) { 
-		transform.rotation = Quaternion.Euler(0,Camera.main.transform.eulerAngles.y,0); 
-	} else { 
-		transform.Rotate(0,Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0); 
-	} 
+	// Allow turning at anytime. Keep the character facing in the same direction as the Camera if the right mouse button is down.
+	if(Input.GetMouseButton(1)) {
+		transform.rotation = Quaternion.Euler(0,Camera.main.transform.eulerAngles.y,0);
+	} else {
+		transform.Rotate(0,Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime, 0);
+	}
     
-	// Toggle walking/running with the left shift key 
-	if(Input.GetKeyDown("left shift")) 
-		isWalking = !isWalking; 
+	// Toggle walking/running with the left shift key
+	if(Input.GetKeyDown("left shift"))
+		isWalking = !isWalking;
     	
-	//Apply gravity 
-	moveDirection.y -= gravity * Time.deltaTime; 
-	//Move controller 
-	var controller:CharacterController = GetComponent(CharacterController); 
-	var flags = controller.Move(moveDirection * Time.deltaTime); 
-	grounded = (flags & CollisionFlags.Below) != 0; 
+	//Apply gravity
+	moveDirection.y -= gravity * Time.deltaTime;
+	//Move controller
+	var controller:CharacterController = GetComponent(CharacterController);
+	var flags = controller.Move(moveDirection * Time.deltaTime);
+	grounded = (flags & CollisionFlags.Below) != 0;
 }
 
 
-static function ClampAngle (angle : float, min : float, max : float) { 
-   if (angle < -360) 
-      angle += 360; 
-   if (angle > 360) 
-      angle -= 360; 
-   return Mathf.Clamp (angle, min, max); 
-} 
+static function ClampAngle (angle : float, min : float, max : float) {
+   if (angle < -360)
+      angle += 360;
+   if (angle > 360)
+      angle -= 360;
+   return Mathf.Clamp (angle, min, max);
+}
 
 @script RequireComponent(CharacterController)
