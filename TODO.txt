@@ -1,3 +1,4 @@
 TODO: Player - Adjust movement turn rate
 TODO: Player - Adjust camera so that it is parented to player at default view in scene edit mode
 TODO: Activate animations
+TODO: Mobster - Implement view code as Unity-customizable polygon fan
