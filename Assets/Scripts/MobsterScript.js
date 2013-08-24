@@ -102,3 +102,5 @@ function GetDestinationNodes() {
 	// 	print(item.transform.position.y);
 	// }
 }
+
+@script RequireComponent(Rigidbody)
