@@ -42,6 +42,9 @@ function WalkAlongNodes() {
 		
 		Move(move_speed);
 	}
+	else {
+		Stop();
+	}
 }
 
 function Move(speed) {
@@ -49,6 +52,13 @@ function Move(speed) {
 	
 	// transform.position += transform.forward.normalized * speed * Time.deltaTime;
 	rigidbody.velocity = transform.forward.normalized * speed;
+}
+
+function Stop() {
+	anim.SetFloat("Speed", 0);
+	
+	rigidbody.velocity = transform.forward.normalized * 0;
+	
 }
 
 function MarkNextDestination() {
