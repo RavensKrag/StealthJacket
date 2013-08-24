@@ -15,18 +15,15 @@ private var yMaxLimit = 80;
 private var x = 0.0; 
 private var y = 0.0; 
 
+private var anim:Animator;
+
 function Start ()
 {
-
-	// animation.wrapMode = WrapMode.Loop;
-	// var punch = animation["punch"];
-	// var walk = animation["walk"];
-	// punch.wrapMode = WrapMode.Once;
-	// animation["punch"].layer = 9;
-	
+	anim = GetComponent(Animator);
 }
 
 function Update () {
+	var move_speed = 0;
    //
    // Only allow movement and jumps while -----------------  GROUNDED -------------
    if(grounded) {
@@ -39,27 +36,22 @@ function Update () {
 		}
        
 		moveDirection = transform.TransformDirection(moveDirection);
-		moveDirection *= isWalking ? walkSpeed : runSpeed;
-       
-		moveStatus = "idle";
-		if(moveDirection != Vector3.zero) {
-			moveStatus = isWalking ? "walking" : "running";
-			if (isWalking){
-				// invoke WALK animation here
-				// animation.CrossFade("walk");
-			} else {
-				// call RUN animation here
-				// animation.CrossFade("run");
-			}
-		} else {
-			// call IDLE animation here
-			// animation.CrossFade("idle");
+		
+		
+		if(isWalking) {
+			move_speed = walkSpeed;
 		}
-		if( Input.GetKey("t")) {	
-			// animation.CrossFadeQueued("punch", 0.1, QueueMode.PlayNow);
+		else {
+			move_speed = runSpeed;
 		}
+		
+		
+		
+		moveDirection *= move_speed;
     }
 	
+	print(move_speed);
+	anim.SetFloat("Speed", move_speed);
 	
 	// Allow turning at anytime. Keep the character facing in the same direction as the Camera if the right mouse button is down.
 	if(Input.GetMouseButton(1)) {
@@ -71,6 +63,21 @@ function Update () {
 	// Toggle walking/running with the left shift key
 	if(Input.GetKeyDown("left shift"))
 		isWalking = !isWalking;
+	
+	
+	anim.SetBool("One", false);
+	anim.SetBool("Two", false);
+	anim.SetBool("Three", false);
+	
+	if(Input.GetButton("Animation1")) {
+		anim.SetBool("One", true);
+	}
+	else if(Input.GetButton("Animation2")) {
+		anim.SetBool("Two", true);
+	}
+	else if(Input.GetButton("Animation3")) {
+		anim.SetBool("Three", true);
+	}
     	
 	//Apply gravity
 	moveDirection.y -= gravity * Time.deltaTime;
