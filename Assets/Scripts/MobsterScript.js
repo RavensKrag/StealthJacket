@@ -7,10 +7,14 @@ var move_speed = 5.0;
 // Within this distance, the mobster has reached his target
 var distance_threshold = 0.1;
 
+private var anim:Animator;
+
 // Whether or not the mobster shoud loop the path, or just follow to the end
 var loop : boolean = true;
 
 function Start () {
+	anim = GetComponent(Animator);
+	
 	GetDestinationNodes();
 	MarkNextDestination();
 }
@@ -41,6 +45,8 @@ function WalkAlongNodes() {
 }
 
 function Move(speed) {
+	anim.SetFloat("Speed", speed);
+	
 	// transform.position += transform.forward.normalized * speed * Time.deltaTime;
 	rigidbody.velocity = transform.forward.normalized * speed;
 }
